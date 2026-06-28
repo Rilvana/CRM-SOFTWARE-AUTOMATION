@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Playwright Reports
+test-results/
+playwright-report/
+blob-report/
+
+# Playwright Cache
+playwright/.cache/
+playwright/.auth/
+
+# Environment
+.env
+.env.*
+
+# OS / VS Code
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Original application source (not part of automation framework)
+idurar-erp-crm/
