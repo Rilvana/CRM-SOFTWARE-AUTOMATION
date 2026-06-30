@@ -21,15 +21,19 @@ export class DashboardPage {
 
     // Capture Paid Invoice amount
     async getPaidInvoiceAmount(): Promise<number> {
-        await expect(this.page.getByText(/\$\s?[\d,]+\.\d{2}/).first()).toBeVisible({timeout: 20000});
-        const amount = await this.page.locator('.ant-tag').filter({ hasText: '$' }).first().textContent();
-        return Number(amount!.replace('$', '').replace(/,/g, '').trim());
+        const amount = this.page.getByRole('heading', { name: 'Paid Invoice', exact: true }).locator('..').locator('.ant-tag');
+        await expect(amount).not.toHaveText('', { timeout: 30000 });
+        await expect(amount).toContainText('$', { timeout: 30000 });
+        const text = await amount.textContent();
+        return Number(text!.replace('$', '').replace(/,/g, '').trim());
     }
 
     async getUnpaidInvoiceAmount(): Promise<number> {
     const text = await this.page.getByRole('heading', { name: 'Unpaid Invoice', exact: true }).locator('..').locator('.ant-tag').textContent();
     return Number(text!.replace('$', '').replace(/,/g, '').trim());
     }
+
+
 
     // TC-02b
     async verifyInvoiceSummary() {
@@ -67,11 +71,16 @@ export class DashboardPage {
         await this.openDashboard();
         const paidAfter = await this.getPaidInvoiceAmount();
         const unpaidAfter = await this.getUnpaidInvoiceAmount();
-        console.log(`Paid Before   : ${paidBefore}`);
-        console.log(`Paid After    : ${paidAfter}`);
+    
+        console.log(`Paid Before : ${paidBefore}`);
+        console.log(`Paid After : ${paidAfter}`);
         console.log(`Unpaid Before : ${unpaidBefore}`);
-        console.log(`Unpaid After  : ${unpaidAfter}`);
+        console.log(`Unpaid After : ${unpaidAfter}`);
+     
         expect(paidAfter).toBeGreaterThan(paidBefore);
         expect(unpaidAfter).toBeGreaterThan(unpaidBefore);
+
+         console.log("Dashboard validation completed");
+       
     }
 }

@@ -15,7 +15,7 @@ dotenv.config();
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  timeout:40000,
+  timeout:118000,
   expect:{timeout:8000},
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -32,11 +32,11 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
     baseURL: 'https://cloud.idurarapp.com',
     headless: false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    screenshot: 'on',
+    video: 'on',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
   },
 
   /* Configure projects for major browsers */

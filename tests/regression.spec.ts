@@ -14,6 +14,7 @@ import {InvoicePage} from '../pages/InvoicePage';
 import {PaymentPage} from '../pages/PaymentPage';
 import { LanguagePage } from '../pages/LanguagePage';
 
+
 let companyName!: string;
 let personName!: string;
 let categoryName!: string;
@@ -71,7 +72,7 @@ baseTest.describe('TC-01: Login Module', () => {
     await language.verifyEnglish();
   })
 
-  test('End-to-End Regression', async ({ authPage }) => {
+   test('End-to-End Regression', async ({ authPage }) => {
 
   // dashboard Invoice amount
     const dashboard = new DashboardPage(authPage);
@@ -138,7 +139,8 @@ baseTest.describe('TC-01: Login Module', () => {
     await payment.openPayments();
     await payment.verifyPayment(personName, '1000');
 
-  //TC-11 DASHBOARD UPDATE - verify dashboard got updated
+
+  //TC-12 DASHBOARD UPDATE - verify dashboard got updated
   
     await dashboard.verifyDashboardUpdated(paidBefore,unpaidBefore);
 
