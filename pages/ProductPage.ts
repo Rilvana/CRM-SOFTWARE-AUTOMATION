@@ -12,16 +12,18 @@ export class ProductPage {
     async clickAddProduct() {
         await this.page.getByRole('button', { name: 'Add New Product' }).click();
         await expect(this.page.locator('.collapseBoxHeader', { hasText: 'Add New Product' })).toBeVisible();
+        await this.page.waitForTimeout(1000);
     }
 
     async createProduct(categoryName: string) {
         const productName = `PW Product ${Date.now()}`;
         await this.page.locator('#name').fill(productName);
         const category = this.page.locator('label[for="productCategory"]').locator('xpath=../following-sibling::div');
+        console.log(await category.count());
         await category.click();
-        await this.page.locator('.ant-select-dropdown').waitFor();
-        const option = this.page.getByText(categoryName, { exact: true });
-        await expect(option).toBeVisible();
+        //await this.page.locator('.ant-select-dropdown').waitFor();
+        const option = this.page.locator('.ant-select-item-option-content').filter({ hasText: categoryName });
+        await expect(option).toBeVisible({ timeout: 10000 });
         await option.click({ force: true });
         await this.page.locator('#price').fill('500');
         await this.page.locator('#description').fill('Playwright Automation Product');
